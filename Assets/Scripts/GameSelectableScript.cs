@@ -17,7 +17,7 @@ public abstract class GameSelectableScript : MonoBehaviour
 			OnSelect();
 		}
 	}
-	protected bool _selected = false;
+	[SerializeField] protected bool _selected = false;
 
 	public bool Hovered
 	{
@@ -29,7 +29,7 @@ public abstract class GameSelectableScript : MonoBehaviour
 			OnHover();
 		}
 	}
-	protected bool _hovered = false;
+	[SerializeField] protected bool _hovered = false;
 
 	public bool Selectable
 	{
@@ -49,7 +49,7 @@ public abstract class GameSelectableScript : MonoBehaviour
 			}
 		}
 	}
-	protected bool _selectable = false;
+	[SerializeField] protected bool _selectable = false;
 
 	private void Awake()
 	{

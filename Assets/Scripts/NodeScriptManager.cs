@@ -37,8 +37,8 @@ public class NodeScriptManager : MonoBehaviour
 
 			if (curr.Neighbors is not null)
 			{
-				var neighbors = curr.Neighbors.Where(x => !AllNodes.Contains(x) || x.Neighbors is null || !x.Neighbors.Contains(curr));
-				foreach (var neighbor in neighbors)
+				//var neighbors = curr.Neighbors.Where(x => !AllNodes.Contains(x) || x.Neighbors is null || !x.Neighbors.Contains(curr));
+				foreach (var neighbor in curr.Neighbors)
 				{
 					var newLine = Instantiate(LinePrefab, transform);
 					newLine.positionCount = 2;
