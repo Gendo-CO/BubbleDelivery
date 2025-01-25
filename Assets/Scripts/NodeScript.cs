@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NodeScript : MonoBehaviour
+public class NodeScript : GameSelectableScript
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public NodeScript[] Neighbors;
+    public readonly List<(NodeScript, LineRenderer)> Paths = new();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	protected override void OnSelect()
+	{
+		foreach (var (_, line) in Paths)
+		{
+			line.gameObject.SetActive(Selected);
+		}
+	}
+
+	protected override void OnHover()
+	{
+		// TODO: light up area
+	}
 }
