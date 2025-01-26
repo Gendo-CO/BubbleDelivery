@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 90a91834665ea5242b60d6b47730ea1a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 12fd14ef5b81d13409f08ecd448b1ff2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -160,7 +160,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 37d6170f5693d2044820de1446a6dc45, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf806a901ffa2d24099ff4ac8cc4463d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -216,7 +216,6 @@ GameObject:
   - component: {fileID: 5274888212418987153}
   - component: {fileID: 4575215941100595921}
   - component: {fileID: 7186501761689961130}
-  - component: {fileID: 4307895505338757063}
   m_Layer: 0
   m_Name: BubbleDude
   m_TagString: Bubble
@@ -277,19 +276,3 @@ MonoBehaviour:
   spriteAssets:
   - {fileID: 21300000, guid: 90a91834665ea5242b60d6b47730ea1a, type: 3}
   - {fileID: 21300000, guid: 4a2868aae7f142c498be3462e822cdf6, type: 3}
---- !u!114 &4307895505338757063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7267562240834119956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4acad394fbd5954592fc7a6560d48f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  lockX: 0
-  lockY: 0
-  lockZ: 0

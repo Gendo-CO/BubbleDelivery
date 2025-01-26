@@ -20,11 +20,11 @@ public class BubblePersonDeliveryScript : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("PostOffice"))
         {
-            hasBox = true;
-        }
-        else if(collision.gameObject.CompareTag("House"))
-        {
             hasBox = false;
+        }
+        else if(collision.gameObject.CompareTag("House") && collision.gameObject)
+        {
+            hasBox = true;
         }
     }
 }
