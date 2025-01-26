@@ -120,14 +120,22 @@ public class BubblePersonScript : GameSelectableScript
 		}
 	}
 
-	//private void OnDestroy()
-	//{
-	//	if (_gameMgr != null && _gameMgr.AllBubblePeople.Contains(this))
-	//	{
-	//		_gameMgr.AllBubblePeople.Remove(this);
-	//	}
-	//}
+    private void OnCollisionEnter(Collision collision)
+    {
+		if (collision.gameObject.CompareTag("Bubble"))
+		{
 
-	protected override void OnHover() { }
+		}
+    }
+
+    //private void OnDestroy()
+    //{
+    //	if (_gameMgr != null && _gameMgr.AllBubblePeople.Contains(this))
+    //	{
+    //		_gameMgr.AllBubblePeople.Remove(this);
+    //	}
+    //}
+
+    protected override void OnHover() { }
 	protected override void OnSelect() { }
 }
