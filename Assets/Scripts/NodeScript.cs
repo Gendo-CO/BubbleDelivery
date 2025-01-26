@@ -9,6 +9,8 @@ public class NodeScript : GameSelectableScript
 
 	public MeshRenderer meshRenderer;
 
+	private NodeScriptManager _nodeScriptMgr;
+
 	public BuildingScript Building => _building;
 	private BuildingScript _building;
 
@@ -27,18 +29,13 @@ public class NodeScript : GameSelectableScript
 		{
 			_building = GetComponent<BuildingScript>();
 		}
+
+		_nodeScriptMgr = FindObjectOfType<NodeScriptManager>(true);
 	}
 
 	protected override void OnSelect()
 	{
-		/*if(Selected)
-		{
-			meshRenderer.material = FindAnyObjectByType<NodeScriptManager>().Materials[2];
-		}
-		else
-		{
-            meshRenderer.material = FindAnyObjectByType<NodeScriptManager>().Materials[0];
-        }*/
+		ChangeColor();
         foreach (var (_, line) in Paths)
 		{
 			line.gameObject.SetActive(Selected);
@@ -47,14 +44,11 @@ public class NodeScript : GameSelectableScript
 
 	protected override void OnHover()
 	{
-        
-		if(Hovered)
-		{
-            meshRenderer.material = FindAnyObjectByType<NodeScriptManager>().Materials[1];
-        }
-		else
-		{
-            meshRenderer.material = FindAnyObjectByType<NodeScriptManager>().Materials[0];
-        }
+		ChangeColor();
     }
+
+	private void ChangeColor()
+	{
+		meshRenderer.material = _nodeScriptMgr.Materials[Selected ? 2 : Hovered ? 1 : 0];
+	}
 }
