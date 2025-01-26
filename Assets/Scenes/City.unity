@@ -8563,7 +8563,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2502521233427826409, guid: 8307f4e8aded9ee46b913349ca57566d, type: 3}
       propertyPath: Neighbors.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2502521233427826409, guid: 8307f4e8aded9ee46b913349ca57566d, type: 3}
       propertyPath: Neighbors.Array.data[0]
@@ -8581,6 +8581,10 @@ PrefabInstance:
       propertyPath: Neighbors.Array.data[3]
       value: 
       objectReference: {fileID: 1650478943}
+    - target: {fileID: 2502521233427826409, guid: 8307f4e8aded9ee46b913349ca57566d, type: 3}
+      propertyPath: Neighbors.Array.data[4]
+      value: 
+      objectReference: {fileID: 1660153444}
     - target: {fileID: 2928273258501840907, guid: 8307f4e8aded9ee46b913349ca57566d, type: 3}
       propertyPath: m_Name
       value: NodeObject (2)
