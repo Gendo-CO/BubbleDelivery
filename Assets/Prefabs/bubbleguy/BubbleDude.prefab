@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 1706833072697444147}
   - component: {fileID: 1749848710034952803}
   - component: {fileID: 6957075286815185014}
+  - component: {fileID: 7633959996584490999}
   m_Layer: 0
   m_Name: bubble
   m_TagString: Untagged
@@ -191,6 +192,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 6.2000947
   m_Center: {x: -0.60783064, y: 0, z: 0.9226171}
+--- !u!114 &7633959996584490999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061844500121121927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4cd799b03813942ba6644eb7edfea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatStrength: 1
 --- !u!1 &7267562240834119956
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +216,6 @@ GameObject:
   - component: {fileID: 5274888212418987153}
   - component: {fileID: 4575215941100595921}
   - component: {fileID: 7186501761689961130}
-  - component: {fileID: 5644807584668482810}
   - component: {fileID: 4307895505338757063}
   m_Layer: 0
   m_Name: BubbleDude
@@ -259,23 +272,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b700abc987b43f94a94d5ee88eae3f7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasBox: 0
   spriteRenderer: {fileID: 3722450146832763826}
   spriteAssets:
   - {fileID: 21300000, guid: 90a91834665ea5242b60d6b47730ea1a, type: 3}
   - {fileID: 21300000, guid: 4a2868aae7f142c498be3462e822cdf6, type: 3}
---- !u!114 &5644807584668482810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7267562240834119956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e4cd799b03813942ba6644eb7edfea7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floatStrength: 1
 --- !u!114 &4307895505338757063
 MonoBehaviour:
   m_ObjectHideFlags: 0
