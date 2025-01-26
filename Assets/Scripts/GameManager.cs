@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private float DescentTimeInSecs = 2f;
 	[SerializeField] private float DescentStartingHeight = 100f;
 
+	private BubblePersonScript _personToMove = null;
+	private GameSelectableScript _hovered = null;
+
 	private void Awake()
 	{
 		Application.targetFrameRate = 60;
@@ -72,6 +75,11 @@ public class GameManager : MonoBehaviour
 			StopCoroutine(_gameLoop);
 			StopCoroutine(_houseLoop);
 			StopCoroutine(_spawnLoop);
+
+			for (int i = AllBubblePeople.Count - 1; i >= 0; i--)
+			{
+				OnDudePopped(AllBubblePeople[i]);
+			}
 
 			// TODO: more game over stuff
 
@@ -122,10 +130,7 @@ public class GameManager : MonoBehaviour
 
 	private IEnumerator GameLoop()
     {
-        GameSelectableScript _hovered = null;
-        BubblePersonScript personToMove = null;
-		NodeScript firstSelected = null;
-		NodeScript lastSelected = null;
+        NodeScript lastSelected = null;
 		RaycastHit info = default;
 
 		while (true)
@@ -136,12 +141,11 @@ public class GameManager : MonoBehaviour
 				_hovered.Hovered = false;
 				_hovered = null;
 			}
-			if (personToMove != null)
+			if (_personToMove != null)
 			{
-				personToMove.Selected = false;
-				personToMove = null;
+				_personToMove.Selected = false;
+				_personToMove = null;
 			}
-			firstSelected = null;
 			if (lastSelected != null)
 			{
 				lastSelected.Selected = false;
@@ -196,18 +200,17 @@ public class GameManager : MonoBehaviour
 
 				if (Input.GetMouseButtonDown(0) && _hovered is BubblePersonScript bps)
 				{
-					personToMove = bps;
-					personToMove.Selected = true;
-					personToMove.Hovered = false;
+					_personToMove = bps;
+					_personToMove.Selected = true;
+					_personToMove.Hovered = false;
 					foreach (var bubblePerson in AllBubblePeople)
 					{
 						bubblePerson.Selectable = false;
 					}
 					_hovered = null;
 
-					personToMove.TravelingPath.Clear();
-					firstSelected = personToMove.On ?? personToMove.To;
-					lastSelected = firstSelected;
+					_personToMove.TravelingPath.Clear();
+					lastSelected = _personToMove.On ?? _personToMove.To;
 					lastSelected.Selectable = true;
 					lastSelected.Selected = true;
 					foreach (var node in lastSelected.Neighbors)
@@ -225,7 +228,7 @@ public class GameManager : MonoBehaviour
 			{
 				yield return null;
 				// Can happen if currently selected bubble person "pops" and is destroyed
-				if (personToMove == null || personToMove.IsPopped) goto Restart;
+				if (_personToMove == null || _personToMove.IsPopped) goto Restart;
 
 				if (Input.GetMouseButtonDown(1))
 				{
@@ -253,16 +256,8 @@ public class GameManager : MonoBehaviour
 					}
 				}
 
-				if (_hovered == null) continue;
-
-				if (Input.GetMouseButtonDown(0) && _hovered is NodeScript ns && ns.Selectable)
+				if (_hovered != null && _hovered is NodeScript ns && ns != lastSelected && ns.Selectable)
 				{
-					if (ns == lastSelected)
-					{
-						personToMove.GiveRoute(Route);
-						goto Restart;
-					}
-
 					lastSelected.Selected = false;
 
 					lastSelected = ns;
@@ -283,6 +278,12 @@ public class GameManager : MonoBehaviour
 						if (neighbor == null) continue;
 						neighbor.Selectable = true;
 					}
+				}
+
+				if (Input.GetMouseButtonUp(0))
+				{
+					_personToMove.GiveRoute(Route);
+					goto Restart;
 				}
 			}
 		}
@@ -316,6 +317,7 @@ public class GameManager : MonoBehaviour
 			Vector3 start = _postOfficeSpawnPoint.transform.position + new Vector3(0, DescentStartingHeight, 0);
 			newMailman.transform.position = start;
 			newMailman.On = _postOfficeSpawnPoint;
+			newMailman.Selectable = false;
 			//const float DESCEND_TIME_IN_SECS = 2f;
 			float timer = 0f;
 			// New mailman can pop if it lands on top of another mailman during its descent
@@ -343,6 +345,7 @@ public class GameManager : MonoBehaviour
 			newMailman.transform.position = _postOfficeSpawnPoint.transform.position;
 			//newMailman.OnPop += MailmanPopped;
 			AllBubblePeople.Add(newMailman);
+			newMailman.Selectable = _personToMove == null;
 		}
 	}
 }
