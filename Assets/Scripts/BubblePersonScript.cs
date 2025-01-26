@@ -9,6 +9,8 @@ public class BubblePersonScript : GameSelectableScript
 	public NodeScript On; // not null if we've stopped moving
 	public readonly Queue<NodeScript> TravelingPath = new();
 
+	private GameManager _gameMgr;
+
 	public float Speed = 1f;
 
 	public void GiveRoute(IEnumerable<NodeScript> route)
@@ -28,6 +30,11 @@ public class BubblePersonScript : GameSelectableScript
 		}
 
 		transform.position = On.transform.position;
+		_gameMgr = FindObjectOfType<GameManager>(true);
+		if (_gameMgr != null && !_gameMgr.AllBubblePeople.Contains(this))
+		{
+			_gameMgr.AllBubblePeople.Add(this);
+		}
 	}
 
 	private void Update()
@@ -63,6 +70,14 @@ public class BubblePersonScript : GameSelectableScript
 		}
 	}
 
-	protected override void OnHover() => throw new System.NotImplementedException();
-	protected override void OnSelect() => throw new System.NotImplementedException();
+	private void OnDestroy()
+	{
+		if (_gameMgr != null && _gameMgr.AllBubblePeople.Contains(this))
+		{
+			_gameMgr.AllBubblePeople.Remove(this);
+		}
+	}
+
+	protected override void OnHover() { }
+	protected override void OnSelect() { }
 }

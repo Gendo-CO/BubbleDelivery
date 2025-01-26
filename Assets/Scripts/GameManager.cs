@@ -6,8 +6,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Camera _mainCam;
-	private readonly List<BubblePersonScript> AllBubblePeople = new();
-	private readonly List<NodeScript> AllNodes = new();
+	public readonly List<BubblePersonScript> AllBubblePeople = new();
+	public readonly List<NodeScript> AllNodes = new();
+	public readonly Queue<NodeScript> Route = new();
 
 	private void Awake()
 	{
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
+		AllNodes.AddRange(FindObjectsByType<NodeScript>(FindObjectsInactive.Include, FindObjectsSortMode.None));
 		StartCoroutine(GameLoop());
 	}
 
@@ -23,12 +25,42 @@ public class GameManager : MonoBehaviour
     {
         GameSelectableScript _hovered = null;
         BubblePersonScript personToMove = null;
+		NodeScript firstSelected = null;
 		NodeScript lastSelected = null;
-		Queue<NodeScript> route = new();
-		RaycastHit info;
+		RaycastHit info = default;
 
 		while (true)
         {
+		Restart:
+			if (_hovered != null)
+			{
+				_hovered.Hovered = false;
+				_hovered = null;
+			}
+			if (personToMove != null)
+			{
+				personToMove.Selected = false;
+				personToMove = null;
+			}
+			firstSelected = null;
+			if (lastSelected != null)
+			{
+				lastSelected.Selected = false;
+				lastSelected = null;
+			}
+			Route.Clear();
+			foreach (var node in AllNodes)
+			{
+				node.Selectable = true;
+				node.Selected = false;
+				node.Hovered = false;
+				node.Selectable = false;
+			}
+			foreach (var bubblePerson in AllBubblePeople)
+			{
+				bubblePerson.Selectable = true;
+			}
+
 			// Selecting bubble person
 			while (true)
 			{
@@ -66,81 +98,21 @@ public class GameManager : MonoBehaviour
 				{
 					personToMove = bps;
 					personToMove.Selected = true;
+					personToMove.Hovered = false;
 					foreach (var bubblePerson in AllBubblePeople)
 					{
 						bubblePerson.Selectable = false;
 					}
-					personToMove.Hovered = false;
 					_hovered = null;
 
-					break;
-				}
-			}
-
-			// Selecting route
-			route.Clear();
-			while (true)
-			{
-				yield return null;
-				// Can happen if currently selected bubble person "pops" and is destroyed
-				if (personToMove == null) goto Restart;
-
-				if (Input.GetMouseButtonDown(1))
-				{
-					goto Restart;
-				}
-
-				if (personToMove.On != null)
-				{
-					foreach (var node in personToMove.On.Neighbors)
+					personToMove.TravelingPath.Clear();
+					firstSelected = personToMove.On ?? personToMove.To;
+					lastSelected = firstSelected;
+					lastSelected.Selectable = true;
+					lastSelected.Selected = true;
+					foreach (var node in lastSelected.Neighbors)
 					{
 						node.Selectable = true;
-					}
-				}
-				else if (personToMove.To != null)
-				{
-					personToMove.To.Selectable = true;
-					personToMove.From.Selectable = true;
-				}
-
-				if (Physics.Raycast(_mainCam.ScreenPointToRay(Input.mousePosition), out info))
-				{
-					if (info.collider.gameObject.TryGetComponent(out GameSelectableScript a))
-					{
-						if (_hovered != a)
-						{
-							if (_hovered != null) _hovered.Hovered = false;
-							_hovered = a;
-							if (_hovered != null) _hovered.Hovered = true;
-						}
-					}
-				}
-				else
-				{
-					if (_hovered != null)
-					{
-						_hovered.Hovered = false;
-						_hovered = null;
-					}
-				}
-
-				if (_hovered == null) continue;
-
-				if (Input.GetMouseButtonDown(0) && _hovered is NodeScript ns && ns.Selectable)
-				{
-					lastSelected = ns;
-					lastSelected.Selected = true;
-					foreach (var node in AllNodes)
-					{
-						node.Selectable = false;
-					}
-					lastSelected.Hovered = false;
-					_hovered = null;
-					route.Enqueue(lastSelected);
-
-					foreach (var neighbor in lastSelected.Neighbors.Where(x => !route.Contains(x)))
-					{
-						neighbor.Selectable = true;
 					}
 
 					break;
@@ -182,64 +154,35 @@ public class GameManager : MonoBehaviour
 
 				if (_hovered == null) continue;
 
-				if (Input.GetMouseButtonDown(0) && _hovered is NodeScript ns)
+				if (Input.GetMouseButtonDown(0) && _hovered is NodeScript ns && ns.Selectable)
 				{
 					if (ns == lastSelected)
 					{
-						personToMove.GiveRoute(route);
+						personToMove.GiveRoute(Route);
 						goto Restart;
 					}
-					else if (!ns.Selectable)
-					{
-						continue;
-					}
+
+					lastSelected.Selected = false;
 
 					lastSelected = ns;
+
 					lastSelected.Selected = true;
+					lastSelected.Hovered = false;
+
 					foreach (var node in AllNodes)
 					{
 						node.Selectable = false;
 					}
-					lastSelected.Hovered = false;
 					_hovered = null;
-					route.Enqueue(lastSelected);
+					Route.Enqueue(lastSelected);
 
-					foreach (var neighbor in lastSelected.Neighbors.Where(x => !route.Contains(x)))
+					lastSelected.Selectable = true;
+					foreach (var neighbor in lastSelected.Neighbors)
 					{
 						neighbor.Selectable = true;
 					}
 				}
 			}
-
-		Restart:
-			if (_hovered != null)
-			{
-				_hovered.Hovered = false;
-				_hovered = null;
-			}
-			if (personToMove != null)
-			{
-				personToMove.Selected = false;
-				personToMove = null;
-			}
-			if (lastSelected != null)
-			{
-				lastSelected.Selected = false;
-				lastSelected = null;
-			}
-			foreach (var node in AllNodes)
-			{
-				node.Selectable = false;
-			}
-			foreach (var bubblePerson in AllBubblePeople)
-			{
-				bubblePerson.Selectable = true;
-			}
-			foreach (var n in route)
-			{
-				n.Selected = false;
-			}
-			route.Clear();
 		}
     }
 }
