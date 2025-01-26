@@ -5,7 +5,7 @@ using UnityEngine.TextCore.Text;
 
 public class BubblePersonDeliveryScript : MonoBehaviour
 {
-    bool hasBox;
+    public bool hasBox;
 
     public SpriteRenderer spriteRenderer;
     public List<Sprite> spriteAssets = new List<Sprite>();

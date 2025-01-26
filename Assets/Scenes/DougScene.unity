@@ -242,6 +242,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coll: {fileID: 568708045}
+  _selected: 0
+  _hovered: 0
+  _selectable: 0
   Neighbors: []
 --- !u!1 &628891647
 GameObject:
@@ -511,6 +514,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coll: {fileID: 712246951}
+  _selected: 0
+  _hovered: 0
+  _selectable: 0
   Neighbors: []
 --- !u!1 &724467985
 GameObject:
@@ -631,6 +637,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coll: {fileID: 724467989}
+  _selected: 0
+  _hovered: 0
+  _selectable: 0
   Neighbors: []
 --- !u!4 &737330719 stripped
 Transform:
@@ -773,6 +782,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coll: {fileID: 1044985352}
+  _selected: 0
+  _hovered: 0
+  _selectable: 0
   Neighbors: []
 --- !u!33 &1044985350
 MeshFilter:
@@ -931,7 +943,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5274888212418987153, guid: c143047b3be655148be279a5edcdfd4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.399
       objectReference: {fileID: 0}
     - target: {fileID: 5274888212418987153, guid: c143047b3be655148be279a5edcdfd4b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -988,9 +1000,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7267562240834119956, guid: c143047b3be655148be279a5edcdfd4b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1444505446}
-    - targetCorrespondingSourceObject: {fileID: 7267562240834119956, guid: c143047b3be655148be279a5edcdfd4b, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1444505451}
     - targetCorrespondingSourceObject: {fileID: 7267562240834119956, guid: c143047b3be655148be279a5edcdfd4b, type: 3}
       insertIndex: -1
@@ -1001,23 +1010,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7267562240834119956, guid: c143047b3be655148be279a5edcdfd4b, type: 3}
   m_PrefabInstance: {fileID: 1444505443}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1444505446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1444505444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bae0c2c3671eec41abd4f4fd0155daa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _coll: {fileID: 0}
-  From: {fileID: 0}
-  To: {fileID: 0}
-  On: {fileID: 737330723}
-  Speed: 0.02
 --- !u!33 &1444505450
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1187,6 +1179,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coll: {fileID: 1549450092}
+  _selected: 0
+  _hovered: 0
+  _selectable: 0
   Neighbors: []
 --- !u!1 &1568337151
 GameObject:
@@ -1307,6 +1302,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coll: {fileID: 1568337155}
+  _selected: 0
+  _hovered: 0
+  _selectable: 0
   Neighbors: []
 --- !u!1 &2005202479
 GameObject:
@@ -1427,6 +1425,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coll: {fileID: 2005202483}
+  _selected: 0
+  _hovered: 0
+  _selectable: 1
   Neighbors:
   - {fileID: 2047980097}
   - {fileID: 2072987094}
@@ -1464,6 +1465,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coll: {fileID: 2047980100}
+  _selected: 0
+  _hovered: 0
+  _selectable: 0
   Neighbors: []
 --- !u!33 &2047980098
 MeshFilter:
@@ -1584,6 +1588,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coll: {fileID: 2072987097}
+  _selected: 0
+  _hovered: 0
+  _selectable: 0
   Neighbors: []
 --- !u!33 &2072987095
 MeshFilter:
@@ -1679,6 +1686,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 628891649}
     m_Modifications:
+    - target: {fileID: 2502521233427826409, guid: 8307f4e8aded9ee46b913349ca57566d, type: 3}
+      propertyPath: _selectable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2502521233427826409, guid: 8307f4e8aded9ee46b913349ca57566d, type: 3}
       propertyPath: Neighbors.Array.data[0]
       value: 

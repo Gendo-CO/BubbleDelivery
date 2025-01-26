@@ -27,21 +27,9 @@ public class DeliverableHouse : MonoBehaviour
         mailIcon.SetActive(true);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
-        if (iWantPackages && collision.gameObject.CompareTag("Bubble")) 
+        if (iWantPackages && collision.gameObject.CompareTag("Bubble") && collision.gameObject.GetComponent<BubblePersonDeliveryScript>().hasBox) 
         {
             iWantPackages = false;
             mailIcon.SetActive(false);
