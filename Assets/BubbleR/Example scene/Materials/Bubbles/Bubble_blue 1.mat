@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bubble_red
+  m_Name: Bubble_blue 1
   m_Shader: {fileID: 4800000, guid: 0f5715eafead83647953f743064c5774, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -16,7 +16,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -25,21 +25,17 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _BounceAmplitude: 0.132
-    - _BounceFrequency: 0.93
+    - _BounceAmplitude: 0.672
+    - _BounceFrequency: 0.82
     - _ColorShiftMode: 0
-    - _ColorShiftNoise: 0.085
-    - _ColorShiftNoiseScale: 1.64
     - _ColorShifting: 1
-    - _Glossiness: 0.87
+    - _Glossiness: 0.908
     - _Metal: 1
-    - _Metallic: 0
+    - _Metallic: 1
     - _SpatialNoise: 0
     m_Colors:
-    - _AnimationParams: {r: 0, g: 1, b: 0, a: 0}
-    - _ColorShiftBand: {r: 0.7253878, g: 0.38715374, b: 0.35523582, a: 0}
-    - _ColorShiftNoise: {r: 0.13, g: 0.458, b: 1.35, a: 0}
-    - _ColorShiftPeak: {r: 0.3626939, g: 0.74367845, b: 0.17761791, a: 0}
-    - _MainColor: {r: 1, g: 1, b: 1, a: 0.2509804}
-    - _ScaleRange: {r: 0.5076104, g: 1.1655257, b: 15587, a: 0}
+    - _ColorShiftBand: {r: 0.34277225, g: 0.27503693, b: 0.37425387, a: 0}
+    - _ColorShiftNoise: {r: 0.304, g: 1.26, b: 2.15, a: 0}
+    - _ColorShiftPeak: {r: 0.40676183, g: 0.608357, b: 0.18712693, a: 0}
+    - _MainColor: {r: 0.6094339, g: 0.7096677, b: 1, a: 0.31764707}
   m_BuildTextureStacks: []
