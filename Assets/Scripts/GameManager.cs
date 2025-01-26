@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
 
 	public readonly Queue<NodeScript> Route = new();
 
+	[SerializeField] private BubblePersonScript _bubbleMailmanPrefab;
+	[SerializeField] private NodeScript _postOfficeSpawnPoint;
+
 	[SerializeField] private TextMeshProUGUI TimerText;
 	[SerializeField] private float SecondsPerRound = 30f;
 	[SerializeField] [Range(1.1f, 10f)] private float TargetPackagesExponent = 2f;
@@ -23,10 +26,11 @@ public class GameManager : MonoBehaviour
 	public int DeliveryTargetAmount = 2;
 	public float TimeLeftInSeconds = 30;
 	private float _cachedTargetAmount = 1f;
-	private int _pickupThreshold = 8;
+	private int _pickupThreshold = 2;
 
 	private Coroutine _gameLoop;
 	private Coroutine _houseLoop;
+	private Coroutine _spawnLoop;
 
 	private void Awake()
 	{
@@ -36,8 +40,10 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		AllNodes.AddRange(FindObjectsByType<NodeScript>(FindObjectsInactive.Include, FindObjectsSortMode.None));
+		AllBubblePeople.AddRange(FindObjectsByType<BubblePersonScript>(FindObjectsInactive.Include, FindObjectsSortMode.None));
 		_gameLoop = StartCoroutine(GameLoop());
 		_houseLoop = StartCoroutine(HouseLoop());
+		_spawnLoop = StartCoroutine(SpawnLoop());
 	}
 
 	private void Update()
@@ -51,6 +57,7 @@ public class GameManager : MonoBehaviour
 			TimeLeftInSeconds = 0f;
 			StopCoroutine(_gameLoop);
 			StopCoroutine(_houseLoop);
+			StopCoroutine(_spawnLoop);
 
 			// TODO: more game over stuff
 
@@ -63,6 +70,7 @@ public class GameManager : MonoBehaviour
 			_cachedTargetAmount *= TargetPackagesExponent;
 			DeliveryTargetAmount = (int)_cachedTargetAmount;
 			TimeLeftInSeconds += SecondsPerRound;
+			_pickupThreshold = Round + 1;
 		}
 
 		TimerText.text = $"Round {Round}\nDeliveries Remaining: {DeliveryTargetAmount}\nTime Left: {TimeLeftInSeconds:F2}";
@@ -173,7 +181,7 @@ public class GameManager : MonoBehaviour
 			{
 				yield return null;
 				// Can happen if currently selected bubble person "pops" and is destroyed
-				if (personToMove == null) goto Restart;
+				if (personToMove == null || personToMove.IsPopped) goto Restart;
 
 				if (Input.GetMouseButtonDown(1))
 				{
@@ -252,5 +260,43 @@ public class GameManager : MonoBehaviour
 
 			yield return null;
 		}
+	}
+
+	private IEnumerator SpawnLoop()
+	{
+		while (true)
+		{
+			yield return new WaitForSeconds(10f);
+
+			var newMailman = Instantiate(_bubbleMailmanPrefab);
+			Vector3 start = _postOfficeSpawnPoint.transform.position + new Vector3(0, 100f, 0);
+			newMailman.transform.position = start;
+			newMailman.On = _postOfficeSpawnPoint;
+			const float DESCEND_TIME_IN_SECS = 2f;
+			float timer = 0f;
+			// New mailman can pop if it lands on top of another mailman during its descent
+			while (timer < DESCEND_TIME_IN_SECS && !newMailman.IsPopped)
+			{
+				float t = timer / DESCEND_TIME_IN_SECS;
+				newMailman.transform.position = Vector3.Lerp(start, _postOfficeSpawnPoint.transform.position, Mathf.Sqrt(t));
+				timer += Time.deltaTime;
+				yield return null;
+			}
+
+			if (newMailman.IsPopped) continue;
+			newMailman.transform.position = _postOfficeSpawnPoint.transform.position;
+			newMailman.OnPop += MailmanPopped;
+			AllBubblePeople.Add(newMailman);
+		}
+	}
+
+	private void MailmanPopped(BubblePersonScript bps)
+	{
+		AllBubblePeople.Remove(bps);
+		bps.Selectable = true;
+		bps.Selected = false;
+		bps.Hovered = false;
+		bps.Selectable = false;
+		bps.OnPop -= MailmanPopped;
 	}
 }
