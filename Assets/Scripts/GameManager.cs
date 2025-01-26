@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,12 +20,12 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] private TextMeshProUGUI TimerText;
 	[SerializeField] private float SecondsPerRound = 30f;
-	[SerializeField] [Range(1.1f, 10f)] private float TargetPackagesExponent = 2f;
+	[SerializeField] [Range(1.1f, 10f)] private float TargetPackagesIncrease = 2f;
 
 	public int Round = 1;
 	public int DeliveryTargetAmount = 2;
 	public float TimeLeftInSeconds = 30;
-	private float _cachedTargetAmount = 1f;
+	private float _cachedTargetAmount = 2f;
 	private int _pickupThreshold = 2;
 
 	private Coroutine _gameLoop;
@@ -114,7 +113,7 @@ public class GameManager : MonoBehaviour
 		if (DeliveryTargetAmount <= 0)
 		{
 			Round++;
-			_cachedTargetAmount *= TargetPackagesExponent;
+			_cachedTargetAmount += TargetPackagesIncrease;
 			DeliveryTargetAmount = (int)_cachedTargetAmount;
 			TimeLeftInSeconds += SecondsPerRound;
 			_pickupThreshold = Round + 1;

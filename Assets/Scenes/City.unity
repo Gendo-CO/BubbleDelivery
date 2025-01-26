@@ -1396,6 +1396,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6576758704824879782, guid: f6a7b01713aec794283c17151f45e90f, type: 3}
   m_PrefabInstance: {fileID: 183626707}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &183626709 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -1516009781915933515, guid: f6a7b01713aec794283c17151f45e90f, type: 3}
+  m_PrefabInstance: {fileID: 183626707}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887c532b306b8684bb097506b032230c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &184121775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2356,8 +2367,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5176,6 +5187,7 @@ GameObject:
   - component: {fileID: 767092944}
   - component: {fileID: 767092946}
   - component: {fileID: 767092945}
+  - component: {fileID: 767092947}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -5246,6 +5258,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767092943}
   m_CullTransparentMesh: 1
+--- !u!114 &767092947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767092943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fcf77815402c1243b6bf7c4205519af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 872107497}
+  StartTextboxes:
+  - {fileID: 1244486650}
+  - {fileID: 1204718688}
+  - {fileID: 1162815472}
+  - {fileID: 1697688220}
+  EndingTextboxes:
+  - {fileID: 1244486650}
+  _titleCardImage: {fileID: 767092945}
+  _gameMgr: {fileID: 1072782433}
+  _nodeScriptMgr: {fileID: 183626709}
 --- !u!1001 &770370013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5635,13 +5670,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 767092947}
+        m_TargetAssemblyTypeName: TitleCardScript, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7195,9 +7230,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11330490}
     - target: {fileID: -8912044862713760540, guid: cb064c766b82c3a4d9a21f9e8793bf78, type: 3}
+      propertyPath: _titleCardImage
+      value: 
+      objectReference: {fileID: 767092945}
+    - target: {fileID: -8912044862713760540, guid: cb064c766b82c3a4d9a21f9e8793bf78, type: 3}
       propertyPath: BubbleDudeRadius
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: -8912044862713760540, guid: cb064c766b82c3a4d9a21f9e8793bf78, type: 3}
+      propertyPath: _gameOverTextbox
+      value: 
+      objectReference: {fileID: 1244486650}
     - target: {fileID: -8912044862713760540, guid: cb064c766b82c3a4d9a21f9e8793bf78, type: 3}
       propertyPath: DescentTimeInSecs
       value: 5
@@ -7218,6 +7261,10 @@ PrefabInstance:
       propertyPath: _postOfficeSpawnPoint
       value: 
       objectReference: {fileID: 1173576011}
+    - target: {fileID: -8912044862713760540, guid: cb064c766b82c3a4d9a21f9e8793bf78, type: 3}
+      propertyPath: TargetPackagesIncrease
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5418146596487512392, guid: cb064c766b82c3a4d9a21f9e8793bf78, type: 3}
       propertyPath: m_Name
       value: GameMgr
@@ -7271,6 +7318,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb064c766b82c3a4d9a21f9e8793bf78, type: 3}
+--- !u!114 &1072782433 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -8912044862713760540, guid: cb064c766b82c3a4d9a21f9e8793bf78, type: 3}
+  m_PrefabInstance: {fileID: 1072782432}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b346a42c252705243baf3088ef5dcec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1073340640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10803,8 +10861,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -11878,7 +11936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7267562240834119956, guid: c143047b3be655148be279a5edcdfd4b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

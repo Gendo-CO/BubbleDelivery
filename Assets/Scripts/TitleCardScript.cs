@@ -13,9 +13,9 @@ public class TitleCardScript : MonoBehaviour
     [SerializeField] private Image _titleCardImage;
 
     [SerializeField] private GameManager _gameMgr;
-	[SerializeField] private NodeScript _nodeScriptMgr;
+	[SerializeField] private NodeScriptManager _nodeScriptMgr;
 
-	private void StartGame()
+	public void StartGame()
 	{
         _gameMgr.gameObject.SetActive(true);
         _nodeScriptMgr.gameObject.SetActive(true);
@@ -43,7 +43,7 @@ public class TitleCardScript : MonoBehaviour
         _titleCardImage.gameObject.SetActive(false);
 	}
 
-	private void Restart()
+	public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
