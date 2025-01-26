@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
 
 				if (Physics.Raycast(_mainCam.ScreenPointToRay(Input.mousePosition), out info))
 				{
-					if (info.collider.gameObject.TryGetComponent(out GameSelectableScript gsc))
+					if (info.collider.transform.parent.TryGetComponent(out GameSelectableScript gsc))
 					{
 						if (_hovered != gsc)
 						{
