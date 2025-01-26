@@ -7,6 +7,8 @@ public class NodeScript : GameSelectableScript
     public NodeScript[] Neighbors;
     public readonly List<(NodeScript, LineRenderer)> Paths = new();
 
+	public List<Material> Materials = new();
+
 	public BuildingScript Building => _building;
 	private BuildingScript _building;
 
@@ -29,7 +31,16 @@ public class NodeScript : GameSelectableScript
 
 	protected override void OnSelect()
 	{
-		foreach (var (_, line) in Paths)
+		if(Selected)
+		{
+			GetComponent<MeshRenderer>().material = Materials[2];
+		}
+		else
+		{
+            GetComponent<MeshRenderer>().material = Materials[0];
+
+        }
+        foreach (var (_, line) in Paths)
 		{
 			line.gameObject.SetActive(Selected);
 		}
@@ -38,5 +49,6 @@ public class NodeScript : GameSelectableScript
 	protected override void OnHover()
 	{
 		// TODO: light up area
-	}
+			GetComponent<MeshRenderer>().material = Materials[1];
+    }
 }
