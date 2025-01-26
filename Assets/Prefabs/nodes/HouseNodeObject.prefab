@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1825113306440662279}
@@ -100,7 +100,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 483203ca1111c0242b79df7ff5051355, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -142,10 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ebf15a8cbc526f4898014073d82292f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mailIcon: {fileID: 0}
-  iWantPackages: 0
-  timeToWaitMin: 3
-  timeToWaitMax: 10
+  mailIcon: {fileID: 3480054100803384206}
 --- !u!1 &3480054100803384206
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,6 +154,7 @@ GameObject:
   - component: {fileID: 6829721795184516458}
   - component: {fileID: 7027748174560695943}
   - component: {fileID: 8784558970909814924}
+  - component: {fileID: 4197371594963828214}
   m_Layer: 0
   m_Name: box
   m_TagString: Untagged
@@ -173,8 +171,8 @@ Transform:
   m_GameObject: {fileID: 3480054100803384206}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.37, y: 3.77, z: -7.64}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: -0.11, y: 1.81, z: -7.64}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4191026049018219907}
@@ -244,6 +242,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatStrength: 1
+--- !u!114 &4197371594963828214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3480054100803384206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4acad394fbd5954592fc7a6560d48f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
+  lockX: 0
+  lockY: 0
+  lockZ: 0
 --- !u!1001 &1825113306440787847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -262,15 +276,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3a0bc997d3424474696ad8d2e7d684ab, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3a0bc997d3424474696ad8d2e7d684ab, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3a0bc997d3424474696ad8d2e7d684ab, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3a0bc997d3424474696ad8d2e7d684ab, type: 3}
       propertyPath: m_LocalPosition.x

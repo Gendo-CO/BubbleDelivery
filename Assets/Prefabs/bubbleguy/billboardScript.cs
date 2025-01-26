@@ -14,14 +14,10 @@ public class BillboardSprite : MonoBehaviour
         {
             mainCamera = Camera.main;
         }
-    }
-
-    void Update()
-    {
         if (mainCamera == null) return;
 
         // Calculate rotation to face the camera
-        Vector3 directionToCamera = mainCamera.transform.position - transform.position;
+        /*Vector3 directionToCamera = mainCamera.transform.position - transform.position;
 
         // Create a rotation looking at the camera
         Quaternion targetRotation = Quaternion.LookRotation(directionToCamera);
@@ -30,9 +26,9 @@ public class BillboardSprite : MonoBehaviour
         Vector3 eulerAngles = targetRotation.eulerAngles;
         if (lockX) eulerAngles.x = transform.rotation.eulerAngles.x;
         if (lockY) eulerAngles.y = transform.rotation.eulerAngles.y;
-        if (lockZ) eulerAngles.z = transform.rotation.eulerAngles.z;
+        if (lockZ) eulerAngles.z = transform.rotation.eulerAngles.z;*/
 
         // Apply the rotation
-        transform.rotation = Quaternion.Euler(eulerAngles);
+        transform.rotation = mainCamera.transform.rotation;
     }
 }

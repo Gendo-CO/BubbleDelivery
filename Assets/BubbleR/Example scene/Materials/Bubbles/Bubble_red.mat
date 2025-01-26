@@ -38,8 +38,8 @@ Material:
     m_Colors:
     - _AnimationParams: {r: 0, g: 1, b: 0, a: 0}
     - _ColorShiftBand: {r: 0.7253878, g: 0.38715374, b: 0.35523582, a: 0}
-    - _ColorShiftNoise: {r: 0.13, g: 0.458, b: 1.35, a: 0}
-    - _ColorShiftPeak: {r: 0.3626939, g: 0.74367845, b: 0.17761791, a: 0}
-    - _MainColor: {r: 1, g: 1, b: 1, a: 0.2509804}
+    - _ColorShiftNoise: {r: 0.13, g: 1.64, b: 1.35, a: 0}
+    - _ColorShiftPeak: {r: 0.3626939, g: 0.8064231, b: 0.8223821, a: 0}
+    - _MainColor: {r: 0.9924528, g: 0.12844299, b: 0, a: 0.6862745}
     - _ScaleRange: {r: 0.5076104, g: 1.1655257, b: 15587, a: 0}
   m_BuildTextureStacks: []
