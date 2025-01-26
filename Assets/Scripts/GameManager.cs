@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,6 +41,9 @@ public class GameManager : MonoBehaviour
 
 	private BubblePersonScript _personToMove = null;
 	private GameSelectableScript _hovered = null;
+
+	[SerializeField] private TextMeshProUGUI _gameOverTextbox;
+	[SerializeField] private Image _titleCardImage;
 
 	private void Awake()
 	{
@@ -81,7 +85,8 @@ public class GameManager : MonoBehaviour
 				OnDudePopped(AllBubblePeople[i]);
 			}
 
-			// TODO: more game over stuff
+			_gameOverTextbox.text = $"GAME OVER!\nYou made it to Round {Round}";
+			_titleCardImage.gameObject.SetActive(true);
 
 			return;
 		}
