@@ -7,6 +7,9 @@ public class NodeScript : GameSelectableScript
     public NodeScript[] Neighbors;
     public readonly List<(NodeScript, LineRenderer)> Paths = new();
 
+	public BuildingScript Building => _building;
+	private BuildingScript _building;
+
 	private void Awake()
 	{
 		if (_coll == null)
@@ -16,6 +19,11 @@ public class NodeScript : GameSelectableScript
 		if (_coll == null)
 		{
 			_coll = GetComponentInChildren<Collider>(true);
+		}
+
+		if (_building == null)
+		{
+			_building = GetComponent<BuildingScript>();
 		}
 	}
 

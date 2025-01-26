@@ -10,6 +10,20 @@ public class BubblePersonScript : GameSelectableScript
 	public readonly Queue<NodeScript> TravelingPath = new();
 
 	private GameManager _gameMgr;
+	public SpriteRenderer Renderer;
+	public List<Sprite> SpriteAssets = new();
+
+	public bool HasBox
+	{
+		get => _hasBox;
+		set
+		{
+			if (_hasBox == value) return;
+			_hasBox = value;
+			Renderer.sprite = SpriteAssets[_hasBox ? 1 : 0];
+		}
+	}
+	private bool _hasBox;
 
 	public float Speed = 1f;
 
@@ -45,6 +59,12 @@ public class BubblePersonScript : GameSelectableScript
 			if (distance.magnitude <= Speed)
 			{
 				transform.position = To.transform.position;
+
+				if (To.Building != null)
+				{
+					To.Building.OnVisit(this);
+				}
+
 				if (TravelingPath.TryDequeue(out var next))
 				{
 					From = To;

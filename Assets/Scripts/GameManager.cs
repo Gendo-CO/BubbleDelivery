@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,7 +10,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Camera _mainCam;
 	public readonly List<BubblePersonScript> AllBubblePeople = new();
 	public readonly List<NodeScript> AllNodes = new();
+	public readonly List<DeliverableHouse> NormalHouses = new();
+	public readonly List<DeliverableHouse> PickupHouses = new();
+
 	public readonly Queue<NodeScript> Route = new();
+
+	[SerializeField] private TextMeshProUGUI TimerText;
+	[SerializeField] private float SecondsPerRound = 30f;
+	[SerializeField] [Range(1.1f, 10f)] private float TargetPackagesExponent = 2f;
+
+	public int Round = 1;
+	public int DeliveryTargetAmount = 2;
+	public float TimeLeftInSeconds = 30;
+	private float _cachedTargetAmount = 1f;
+	private int _pickupThreshold = 8;
+
+	private Coroutine _gameLoop;
+	private Coroutine _houseLoop;
 
 	private void Awake()
 	{
@@ -18,7 +36,36 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		AllNodes.AddRange(FindObjectsByType<NodeScript>(FindObjectsInactive.Include, FindObjectsSortMode.None));
-		StartCoroutine(GameLoop());
+		_gameLoop = StartCoroutine(GameLoop());
+		_houseLoop = StartCoroutine(HouseLoop());
+	}
+
+	private void Update()
+	{
+		if (TimeLeftInSeconds <= 0f) return;
+
+		TimeLeftInSeconds -= Time.deltaTime;
+
+		if (TimeLeftInSeconds <= 0f)
+		{
+			TimeLeftInSeconds = 0f;
+			StopCoroutine(_gameLoop);
+			StopCoroutine(_houseLoop);
+
+			// TODO: more game over stuff
+
+			return;
+		}
+
+		if (DeliveryTargetAmount <= 0)
+		{
+			Round++;
+			_cachedTargetAmount *= TargetPackagesExponent;
+			DeliveryTargetAmount = (int)_cachedTargetAmount;
+			TimeLeftInSeconds += SecondsPerRound;
+		}
+
+		TimerText.text = $"Round {Round}\nDeliveries Remaining: {DeliveryTargetAmount}\nTime Left: {TimeLeftInSeconds:F2}";
 	}
 
 	private IEnumerator GameLoop()
@@ -73,7 +120,8 @@ public class GameManager : MonoBehaviour
 
 				if (Physics.Raycast(_mainCam.ScreenPointToRay(Input.mousePosition), out info))
 				{
-					if (info.collider.transform.parent.TryGetComponent(out GameSelectableScript gsc))
+					var trans = info.collider.transform;
+					if (trans.parent != null && trans.parent.TryGetComponent(out GameSelectableScript gsc))
 					{
 						if (_hovered != gsc)
 						{
@@ -112,6 +160,7 @@ public class GameManager : MonoBehaviour
 					lastSelected.Selected = true;
 					foreach (var node in lastSelected.Neighbors)
 					{
+						if (node == null) continue;
 						node.Selectable = true;
 					}
 
@@ -179,10 +228,29 @@ public class GameManager : MonoBehaviour
 					lastSelected.Selectable = true;
 					foreach (var neighbor in lastSelected.Neighbors)
 					{
+						if (neighbor == null) continue;
 						neighbor.Selectable = true;
 					}
 				}
 			}
 		}
     }
+
+	private IEnumerator HouseLoop()
+	{
+		while (true)
+		{
+			if (PickupHouses.Count < _pickupThreshold && NormalHouses.Count > 0)
+			{
+				yield return new WaitForSeconds(3f);
+				int iter = Random.Range(0, NormalHouses.Count);
+				var pickupHouse = NormalHouses[iter];
+				NormalHouses.RemoveAt(iter);
+				PickupHouses.Add(pickupHouse);
+				pickupHouse.HasPackageToGive = true;
+			}
+
+			yield return null;
+		}
+	}
 }
