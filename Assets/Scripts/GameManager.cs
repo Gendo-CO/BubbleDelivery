@@ -32,6 +32,12 @@ public class GameManager : MonoBehaviour
 	private Coroutine _houseLoop;
 	private Coroutine _spawnLoop;
 
+	private readonly HashSet<BubblePersonScript> _toPop = new();
+	[SerializeField] private float BubbleDudeRadius = 1f;
+	[SerializeField] private float DudeSpawnPeriodInSecs = 3f;
+	[SerializeField] private float DescentTimeInSecs = 2f;
+	[SerializeField] private float DescentStartingHeight = 100f;
+
 	private void Awake()
 	{
 		Application.targetFrameRate = 60;
@@ -72,6 +78,26 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 
+		_toPop.Clear();
+		for (int i = 0; i < AllBubblePeople.Count; i++)
+		{
+			var a = AllBubblePeople[i];
+			for (int j = i + 1; j < AllBubblePeople.Count; j++)
+			{
+				var b = AllBubblePeople[j];
+				var diff = a.transform.position - b.transform.position;
+				if (diff.magnitude <= BubbleDudeRadius)
+				{
+					_toPop.Add(a);
+					_toPop.Add(b);
+				}
+			}
+		}
+		foreach (var dudeToPop in _toPop)
+		{
+			OnDudePopped(dudeToPop);
+		}
+
 		if (DeliveryTargetAmount <= 0)
 		{
 			Round++;
@@ -82,6 +108,16 @@ public class GameManager : MonoBehaviour
 		}
 
 		TimerText.text = $"Round {Round}\nDeliveries Remaining: {DeliveryTargetAmount}\nTime Left: {TimeLeftInSeconds:F2}";
+	}
+
+	private void OnDudePopped(BubblePersonScript dudeToPop)
+	{
+		AllBubblePeople.Remove(dudeToPop);
+		dudeToPop.Selectable = true;
+		dudeToPop.Selected = false;
+		dudeToPop.Hovered = false;
+		dudeToPop.Selectable = false;
+		dudeToPop.Pop();
 	}
 
 	private IEnumerator GameLoop()
@@ -274,37 +310,39 @@ public class GameManager : MonoBehaviour
 	{
 		while (true)
 		{
-			yield return new WaitForSeconds(10f);
+			yield return new WaitForSeconds(DudeSpawnPeriodInSecs);
 
 			var newMailman = Instantiate(_bubbleMailmanPrefab);
-			Vector3 start = _postOfficeSpawnPoint.transform.position + new Vector3(0, 100f, 0);
+			Vector3 start = _postOfficeSpawnPoint.transform.position + new Vector3(0, DescentStartingHeight, 0);
 			newMailman.transform.position = start;
 			newMailman.On = _postOfficeSpawnPoint;
-			const float DESCEND_TIME_IN_SECS = 2f;
+			//const float DESCEND_TIME_IN_SECS = 2f;
 			float timer = 0f;
 			// New mailman can pop if it lands on top of another mailman during its descent
-			while (timer < DESCEND_TIME_IN_SECS && !newMailman.IsPopped)
+			while (timer < DescentTimeInSecs && !newMailman.IsPopped)
 			{
-				float t = timer / DESCEND_TIME_IN_SECS;
+				float t = timer / DescentTimeInSecs;
 				newMailman.transform.position = Vector3.Lerp(start, _postOfficeSpawnPoint.transform.position, Mathf.Sqrt(t));
+
+				for (int i = 0; i < AllBubblePeople.Count; i++)
+				{
+					var other = AllBubblePeople[i];
+					if ((other.transform.position - newMailman.transform.position).magnitude <= BubbleDudeRadius)
+					{
+						newMailman.Pop();
+						OnDudePopped(other);
+						break;
+					}
+				}
+
 				timer += Time.deltaTime;
 				yield return null;
 			}
 
 			if (newMailman.IsPopped) continue;
 			newMailman.transform.position = _postOfficeSpawnPoint.transform.position;
-			newMailman.OnPop += MailmanPopped;
+			//newMailman.OnPop += MailmanPopped;
 			AllBubblePeople.Add(newMailman);
 		}
-	}
-
-	private void MailmanPopped(BubblePersonScript bps)
-	{
-		AllBubblePeople.Remove(bps);
-		bps.Selectable = true;
-		bps.Selected = false;
-		bps.Hovered = false;
-		bps.Selectable = false;
-		bps.OnPop -= MailmanPopped;
 	}
 }

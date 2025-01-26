@@ -14,9 +14,14 @@ public class BubblePersonScript : GameSelectableScript
 	public SpriteRenderer Renderer;
 	public List<Sprite> SpriteAssets = new();
 
-	public event Action<BubblePersonScript> OnPop;
+	//public event Action<BubblePersonScript> OnPop;
 
-	public bool IsPopped { get; private set; } = false;
+	public bool IsPopped
+	{
+		get => _isPopped;
+		private set => _isPopped = value;
+	}
+	[SerializeField] private bool _isPopped = false;
 
 	public bool HasBox
 	{
@@ -48,7 +53,7 @@ public class BubblePersonScript : GameSelectableScript
 		IsPopped = true;
 		Renderer.sprite = SpriteAssets[2];
 
-		OnPop?.Invoke(this);
+		//OnPop?.Invoke(this);
 
 		StartCoroutine(PopRoutine());
 	}
@@ -63,7 +68,7 @@ public class BubblePersonScript : GameSelectableScript
 			deathTimer -= Time.deltaTime;
 			yield return null;
 		}
-		Destroy(this);
+		Destroy(gameObject);
 	}
 
 	private void Start()
