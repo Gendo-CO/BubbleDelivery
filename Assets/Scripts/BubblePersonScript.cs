@@ -14,6 +14,9 @@ public class BubblePersonScript : GameSelectableScript
 	public SpriteRenderer Renderer;
 	public List<Sprite> SpriteAssets = new();
 
+	public float dropSpeed = 1;
+	public float spinSpeed = 180;
+
 	//public event Action<BubblePersonScript> OnPop;
 
 	public bool IsPopped
@@ -55,6 +58,8 @@ public class BubblePersonScript : GameSelectableScript
 
 		//OnPop?.Invoke(this);
 
+		GetComponentInChildren<MeshRenderer>().enabled = false;
+		GetComponentInChildren<FloatingBehavior>().enabled = false;
 		StartCoroutine(PopRoutine());
 	}
 
@@ -63,9 +68,11 @@ public class BubblePersonScript : GameSelectableScript
 		float deathTimer = 3f;
 		while (deathTimer > 0f)
 		{
-			const float DROP_SPEED = 0.1f;
-			transform.position -= new Vector3(0f, Time.deltaTime * DROP_SPEED, 0f);
-			deathTimer -= Time.deltaTime;
+			transform.position -= new Vector3(0f, Time.deltaTime * dropSpeed, 0f);
+			var froggy = transform.GetChild(0).GetChild(0);
+			froggy.Rotate(froggy.forward, spinSpeed * Time.deltaTime);
+
+            deathTimer -= Time.deltaTime;
 			yield return null;
 		}
 		Destroy(gameObject);
@@ -88,6 +95,7 @@ public class BubblePersonScript : GameSelectableScript
 
 	private void Update()
 	{
+		if(IsPopped) return;
 		if (To != null)
 		{
 			Vector3 distance = To.transform.position - transform.position;
@@ -124,14 +132,6 @@ public class BubblePersonScript : GameSelectableScript
 			On = null;
 		}
 	}
-
-    private void OnCollisionEnter(Collision collision)
-    {
-		if (collision.gameObject.CompareTag("Bubble"))
-		{
-
-		}
-    }
 
     //private void OnDestroy()
     //{

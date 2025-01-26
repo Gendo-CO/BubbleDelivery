@@ -261,5 +261,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bcd2165aa339dba42a76be1714259b9b, type: 3}
   - {fileID: 21300000, guid: 4c7a2304d801d3d4da90135c6d03a952, type: 3}
   - {fileID: 21300000, guid: 2a5ec14b4bdaf0a4cafb77656776bc53, type: 3}
+  dropSpeed: 10
   _isPopped: 0
   Speed: 0.4
