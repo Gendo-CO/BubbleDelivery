@@ -1307,6 +1307,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1516009781915933515, guid: f6a7b01713aec794283c17151f45e90f, type: 3}
+      propertyPath: Materials.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -1516009781915933515, guid: f6a7b01713aec794283c17151f45e90f, type: 3}
+      propertyPath: Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 384efce7266f7584aa8d93640d722fcc, type: 2}
+    - target: {fileID: -1516009781915933515, guid: f6a7b01713aec794283c17151f45e90f, type: 3}
+      propertyPath: Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a436ec7c29795184ca39cd1c112ec92c, type: 2}
+    - target: {fileID: -1516009781915933515, guid: f6a7b01713aec794283c17151f45e90f, type: 3}
+      propertyPath: Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: c3c601a763ede3c45a1fd58c73e03b13, type: 2}
     - target: {fileID: 1230571158475793817, guid: f6a7b01713aec794283c17151f45e90f, type: 3}
       propertyPath: m_Name
       value: NodeMgr
@@ -1521,7 +1537,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2502521233427826409, guid: 8307f4e8aded9ee46b913349ca57566d, type: 3}
       propertyPath: Neighbors.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2502521233427826409, guid: 8307f4e8aded9ee46b913349ca57566d, type: 3}
       propertyPath: Neighbors.Array.data[0]
@@ -1534,11 +1550,11 @@ PrefabInstance:
     - target: {fileID: 2502521233427826409, guid: 8307f4e8aded9ee46b913349ca57566d, type: 3}
       propertyPath: Neighbors.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1738397773}
     - target: {fileID: 2502521233427826409, guid: 8307f4e8aded9ee46b913349ca57566d, type: 3}
       propertyPath: Neighbors.Array.data[3]
       value: 
-      objectReference: {fileID: 1738397773}
+      objectReference: {fileID: 0}
     - target: {fileID: 2928273258501840907, guid: 8307f4e8aded9ee46b913349ca57566d, type: 3}
       propertyPath: m_Name
       value: NodeObject (6)

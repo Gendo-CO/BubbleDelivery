@@ -60,6 +60,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  meshRenderer: {fileID: 465217434574944035}
 --- !u!135 &9157720594607196136
 SphereCollider:
   m_ObjectHideFlags: 0

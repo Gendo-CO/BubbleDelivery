@@ -56,10 +56,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  Materials:
-  - {fileID: 2100000, guid: 384efce7266f7584aa8d93640d722fcc, type: 2}
-  - {fileID: 2100000, guid: a436ec7c29795184ca39cd1c112ec92c, type: 2}
-  - {fileID: 2100000, guid: c3c601a763ede3c45a1fd58c73e03b13, type: 2}
+  meshRenderer: {fileID: 465217434574944035}
 --- !u!135 &9157720594607196136
 SphereCollider:
   m_ObjectHideFlags: 0
