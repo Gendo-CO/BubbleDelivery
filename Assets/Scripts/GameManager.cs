@@ -41,6 +41,14 @@ public class GameManager : MonoBehaviour
 	{
 		AllNodes.AddRange(FindObjectsByType<NodeScript>(FindObjectsInactive.Include, FindObjectsSortMode.None));
 		AllBubblePeople.AddRange(FindObjectsByType<BubblePersonScript>(FindObjectsInactive.Include, FindObjectsSortMode.None));
+		foreach (var bubblePerson in AllBubblePeople)
+		{
+			if (bubblePerson.On == null)
+			{
+				bubblePerson.On = _postOfficeSpawnPoint;
+			}
+			bubblePerson.transform.position = bubblePerson.On.transform.position;
+		}
 		_gameLoop = StartCoroutine(GameLoop());
 		_houseLoop = StartCoroutine(HouseLoop());
 		_spawnLoop = StartCoroutine(SpawnLoop());
