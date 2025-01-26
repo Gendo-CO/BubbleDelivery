@@ -37,5 +37,5 @@ Material:
     - _ColorShiftBand: {r: 0.34277225, g: 0.27503693, b: 0.37425387, a: 0}
     - _ColorShiftNoise: {r: 0.151, g: 0.81, b: 1.63, a: 0}
     - _ColorShiftPeak: {r: 0.45316565, g: 0.51023525, b: 0.18712693, a: 0}
-    - _MainColor: {r: 1, g: 1, b: 1, a: 0.22352941}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 0.14901961}
   m_BuildTextureStacks: []

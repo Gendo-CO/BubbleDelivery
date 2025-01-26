@@ -56,6 +56,7 @@ MonoBehaviour:
   Neighbors:
   - {fileID: 0}
   - {fileID: 0}
+  meshRenderer: {fileID: 465217434574944035}
 --- !u!135 &9157720594607196136
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -97,7 +98,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 483203ca1111c0242b79df7ff5051355, type: 2}
+  - {fileID: 2100000, guid: 384efce7266f7584aa8d93640d722fcc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

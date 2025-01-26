@@ -11,6 +11,7 @@ public class NodeScriptManager : MonoBehaviour
 	//public NodeScript[] AllNodes;
 	readonly HashSet<NodeScript> AllNodes = new();
 	private readonly List<LineRenderer> _renderers = new();
+	public List<Material> Materials = new List<Material>();
 
 	private void Awake()
 	{
