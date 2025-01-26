@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,12 +14,16 @@ public class BubblePersonScript : GameSelectableScript
 	public SpriteRenderer Renderer;
 	public List<Sprite> SpriteAssets = new();
 
+	public event Action<BubblePersonScript> OnPop;
+
+	public bool IsPopped { get; private set; } = false;
+
 	public bool HasBox
 	{
 		get => _hasBox;
 		set
 		{
-			if (_hasBox == value) return;
+			if (_hasBox == value || IsPopped) return;
 			_hasBox = value;
 			Renderer.sprite = SpriteAssets[_hasBox ? 1 : 0];
 		}
@@ -36,6 +41,31 @@ public class BubblePersonScript : GameSelectableScript
 		}
 	}
 
+	public void Pop()
+	{
+		if (IsPopped) return;
+
+		IsPopped = true;
+		Renderer.sprite = SpriteAssets[2];
+
+		OnPop?.Invoke(this);
+
+		StartCoroutine(PopRoutine());
+	}
+
+	private IEnumerator PopRoutine()
+	{
+		float deathTimer = 3f;
+		while (deathTimer > 0f)
+		{
+			const float DROP_SPEED = 0.1f;
+			transform.position -= new Vector3(0f, Time.deltaTime * DROP_SPEED, 0f);
+			deathTimer -= Time.deltaTime;
+			yield return null;
+		}
+		Destroy(this);
+	}
+
 	private void Start()
 	{
 		if (On == null)
@@ -43,12 +73,12 @@ public class BubblePersonScript : GameSelectableScript
 			Debug.LogError("Starting node needs to be set on BubblePersonScript");
 		}
 
-		transform.position = On.transform.position;
+		//transform.position = On.transform.position;
 		_gameMgr = FindObjectOfType<GameManager>(true);
-		if (_gameMgr != null && !_gameMgr.AllBubblePeople.Contains(this))
-		{
-			_gameMgr.AllBubblePeople.Add(this);
-		}
+		//if (_gameMgr != null && !_gameMgr.AllBubblePeople.Contains(this))
+		//{
+		//	_gameMgr.AllBubblePeople.Add(this);
+		//}
 	}
 
 	private void Update()
@@ -90,13 +120,13 @@ public class BubblePersonScript : GameSelectableScript
 		}
 	}
 
-	private void OnDestroy()
-	{
-		if (_gameMgr != null && _gameMgr.AllBubblePeople.Contains(this))
-		{
-			_gameMgr.AllBubblePeople.Remove(this);
-		}
-	}
+	//private void OnDestroy()
+	//{
+	//	if (_gameMgr != null && _gameMgr.AllBubblePeople.Contains(this))
+	//	{
+	//		_gameMgr.AllBubblePeople.Remove(this);
+	//	}
+	//}
 
 	protected override void OnHover() { }
 	protected override void OnSelect() { }
