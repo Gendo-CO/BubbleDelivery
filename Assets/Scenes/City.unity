@@ -1329,7 +1329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1230571158475793817, guid: f6a7b01713aec794283c17151f45e90f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6576758704824879782, guid: f6a7b01713aec794283c17151f45e90f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7230,6 +7230,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11330490}
     - target: {fileID: -8912044862713760540, guid: cb064c766b82c3a4d9a21f9e8793bf78, type: 3}
+      propertyPath: SecondsPerRound
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: -8912044862713760540, guid: cb064c766b82c3a4d9a21f9e8793bf78, type: 3}
       propertyPath: _titleCardImage
       value: 
       objectReference: {fileID: 767092945}
@@ -11260,19 +11264,19 @@ PrefabInstance:
     - target: {fileID: 2502521233427826409, guid: 195c25719c4431d41b9a54eb09550840, type: 3}
       propertyPath: Neighbors.Array.data[0]
       value: 
-      objectReference: {fileID: 925154208}
+      objectReference: {fileID: 1738397773}
     - target: {fileID: 2502521233427826409, guid: 195c25719c4431d41b9a54eb09550840, type: 3}
       propertyPath: Neighbors.Array.data[1]
       value: 
-      objectReference: {fileID: 1766025962}
+      objectReference: {fileID: 925154208}
     - target: {fileID: 2502521233427826409, guid: 195c25719c4431d41b9a54eb09550840, type: 3}
       propertyPath: Neighbors.Array.data[2]
       value: 
-      objectReference: {fileID: 1738397773}
+      objectReference: {fileID: 1766025962}
     - target: {fileID: 2502521233427826409, guid: 195c25719c4431d41b9a54eb09550840, type: 3}
       propertyPath: Neighbors.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1020046952}
     - target: {fileID: 2928273258501840907, guid: 195c25719c4431d41b9a54eb09550840, type: 3}
       propertyPath: m_Name
       value: HouseNodeObject (6)
